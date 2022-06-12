@@ -62,17 +62,18 @@ app.get("/", (req, res) => {
 //---------------------------------------------------------------------------
 // POST ROUTE (connected to save function in canvas app)
 // -this works up until the db insert, then it fails rather agressively
-app.post("/", (req, res) => {
+app.post("/drawings", (req, res) => {
   const poop = JSON.stringify(req.body);
   console.log("Points to be saved", poop);
 
   return db.query(
     `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-          VALUES (1,'test1','${poop}')
-          
+          VALUES (1,'test1','${poop}',false)
+
         `
   )
+
     .then((res) => {
       console.log("no error from server about query")
       console.log("res ===>", res);
