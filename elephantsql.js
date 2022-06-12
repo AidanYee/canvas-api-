@@ -23,6 +23,8 @@ client.connect(function (err) {
   });
 });
 
+module.exports = client;
+
 // -Attempted to seperate out the insert from server.js
 // -we were hoping to call this insertdrawing func from the server.js when a post was successfull
 //

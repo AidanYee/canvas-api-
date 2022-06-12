@@ -66,7 +66,7 @@ app.post("/", (req, res) => {
   const poop = JSON.stringify(req.body);
   console.log(poop);
 
-  return pg.query(
+  return db.query(
     `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
           VALUES (1,
