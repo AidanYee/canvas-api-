@@ -1,4 +1,7 @@
+// ELEPHANT SQL CONNECTION FILE:
 // https://www.elephantsql.com/docs/nodejs.html
+//---------------------------------------------------------------------------
+
 require("dotenv").config();
 
 const pg = require("pg");
@@ -17,28 +20,10 @@ client.connect(function (err) {
   //     return console.error("error running query", err);
   //   }
   //   console.log(result.rows[0].theTime);
-    console.log("db connected");
-    // >> output: 2018-08-23T14:02:57.117Z
-    // client.end();
+  console.log("db connected");
+  // >> output: 2018-08-23T14:02:57.117Z
+  // client.end();
   // });
 });
 
 module.exports = client;
-
-// -Attempted to seperate out the insert from server.js
-// -we were hoping to call this insertdrawing func from the server.js when a post was successfull
-//
-// const insertDrawing = (poop) => {
-//   return client.query(
-//     `
-//           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-//           VALUES (1,
-//             'test1',
-//             '${poop}',
-//              TRUE)
-//         `
-//   );
-// };
-
-//not sure about this syntax, inspiration came from light airbnb?
-//exports.insertDrawing = insertDrawing;

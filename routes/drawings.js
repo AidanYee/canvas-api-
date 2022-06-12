@@ -1,31 +1,36 @@
-// NOTE! - in our ideal world all routes are set up like below but we were unable to pull it off
-// so reverted to just hardcoding the post request in server.js like our opriginal mentor call
-// get request
-// const db = require('./elephantsql.js')
-// const router = require("express").Router();
+// DRAWINGS ROUTE:
+const router = require("express").Router();
 
-//--------------------------------------------------------------------------------------
-// router.post("/", (req, res) => {
-//   const poop = JSON.stringify(req.body);
-//   console.log("Points to be saved", poop);
+//---------------------------------------------------------------------------
+// POST ROUTE (connected to save function in canvas app)
+// -receives the axios post request from the saveDrawing func on the canvas client side
+// -it takes the data it is given and turns it from an array fo objects into JSON string
+//  and sends that to the elephantSQL DB via an INSERT
+// -if the insert is successfull we send the same data (via res.send) back to the client side
+//  and the client side uses that info to clear the latLong state
 
-//   return db.query(
-//     `
-//           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-//           VALUES (1,
-//             'test1',
-//             '${poop}',
-//              TRUE)
-//         `
-//   )
-//     .then((res) => {
-//       console.log("no error from server about query")
-//       console.log("res ===>", res);
-//       return res;
-// //
-//     })
-//     .catch(err => console.log(err.message))
-// });
+module.exports = (db) => {
+  //POST drawings
+  router.post("/", (req, res) => {
+    const drawingsData = JSON.stringify(req.body);
 
-// module.exports = router;
+    return db
+      .query(
+        `
+          INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
+          VALUES (1,'test1','${drawingsData}',false) RETURNING *;
+        `
+      )
+      .then((response) => {
+        console.log("res ===>", response.rows[0].drawing_points);
+        return res.send(response.rows);
+      })
+      .catch((err) => console.log(err.message));
+  });
 
+  //GET User drawings
+
+  //GET Showcase
+
+  return router;
+};
