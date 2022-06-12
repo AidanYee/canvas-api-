@@ -65,22 +65,24 @@ app.get("/", (req, res) => {
 app.post("/drawings", (req, res) => {
   const poop = JSON.stringify(req.body);
   console.log("Points to be saved", poop);
-
+console.log("response at route", res)
   return db.query(
     `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-          VALUES (1,'test1','${poop}',false)
+          VALUES (1,'test1','${poop}',false) RETURNING *;
 
         `
   )
 
-    .then((res) => {
+    .then((response) => {
       console.log("no error from server about query")
-      console.log("res ===>", res);
-      return res;
+      //console.log("res ===>", res.rows[0]);
+      //console.log("res status", res.status);
+      //res.send(res.rows)
+       res.send(response.rows);
       //
     })
-    .catch(err => console.log(err.message))
+    //.catch(err => console.log(err.message))
 });
 // - this route is incase someone tries to get to a route that doesn't exist it send them a 404 error
 app.get('*', (req, res) => {
