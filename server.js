@@ -38,6 +38,9 @@ app.use(cors());
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+app.post("/", (req, res) => {
+  console.log("post request", req);
+});
 app.get("/", (req, res) => {
   res.json({message: "hello world"});
 });
