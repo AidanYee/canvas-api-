@@ -1,6 +1,6 @@
 // load .env data into process.env, allows us to use env files
 require("dotenv").config();
-
+const db = require('./elephantsql.js')
 // -allows us to make requests. CORS allows the server to explicitly whitelist certain origin and help to bypass the same-origin policy
 const cors = require("cors");
 
@@ -13,10 +13,7 @@ const app = express();
 // -morgan is the server listner, allows us to receives server based errors (dev tool)
 const morgan = require("morgan");
 
-//const drawings = require("./routes/drawings");
 
-// this brings in our elephant sql file, so that we can make the DB connection
-const db = require("./elephantsql");
 
 // -this calls/ fires up morgan. Logger middleware will generate a detailed log using what is called the default format.
 app.use(morgan("dev"));
@@ -25,11 +22,13 @@ app.use(express.json({ extended: true }));
 
 app.use(cors());
 
+
+// this brings in our elephant sql file, so that we can make the DB connection
 //-----------------------------------------------------
 // CONNECTS TO SEPERATED ROUTE IN ROUTES FOLDER
-// const drawingsRoutes = require("./routes/drawings");
 
-// app.use("/drawings", drawingsRoutes(db));
+// const drawingsRoutes = require("./routes/drawings");
+// app.use("/", drawingsRoutes(db));
 
 // app.use("./drawings", function (req, res, next) {
 //   res.send("Hello World");
@@ -52,9 +51,7 @@ app.use(cors());
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.post("/", (req, res) => {
-  console.log("post request", req);
-});
+
 //-----------------------------------------------------
 // FIRST SUCCESSFULL ROUTE:
 // -built with mentor, and proven successful
@@ -65,21 +62,28 @@ app.get("/", (req, res) => {
 //---------------------------------------------------------------------------
 // POST ROUTE (connected to save function in canvas app)
 // -this works up until the db insert, then it fails rather agressively
-
 app.post("/", (req, res) => {
   const poop = JSON.stringify(req.body);
-  console.log(poop);
+  console.log("Points to be saved", poop);
 
-  return pg.query(
+  return db.query(
     `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-          VALUES (1,
-            'test1',
-            '${poop}',
-             TRUE)
+          VALUES (1,'test1','${poop}')
+          
         `
-  );
-  // .catch(err => console.log(err.message))
+  )
+    .then((res) => {
+      console.log("no error from server about query")
+      console.log("res ===>", res);
+      return res;
+      //
+    })
+    .catch(err => console.log(err.message))
+});
+// - this route is incase someone tries to get to a route that doesn't exist it send them a 404 error
+app.get('*', (req, res) => {
+  res.redirect(404, "/");
 });
 
 //------------------------------------------------------------------------------
