@@ -25,6 +25,9 @@ app.use(cors());
 
 //--------------------------------------------------------------------------------
 // CONNECTS TO SEPERATED ROUTE IN ROUTES FOLDER
+const usersRoutes = require("./routes/users");
+app.use("/users", usersRoutes(db));
+
 const drawingsRoutes = require("./routes/drawings");
 app.use("/drawings", drawingsRoutes(db));
 
@@ -55,22 +58,5 @@ app.listen(PORT, () => {
 // -We established the connection to express by attaching it to a var named app here is server.js
 //  we export that var so other can use the connection
 module.exports = app;
-
-//-----------------------------------------------------
-// ORIGINAL NOTES FROM BASE GIT HUB REPO
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-// const usersRoutes = require("./routes/users");
-// const widgetsRoutes = require("./routes/widgets");
-
-// Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-// app.use("/api/users", usersRoutes(db));
-// app.use("/api/widgets", widgetsRoutes(db));
-// Note: mount other resources here, using the same pattern above
-
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
 
 

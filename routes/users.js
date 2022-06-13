@@ -9,17 +9,21 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+
+  router.post("/login", (req, res) => {
+
+    //const user = req;
+    console.log("post route", req.body);
+    db.query(`SELECT * FROM users WHERE id = 1;`)
       .then(data => {
-        const users = data.rows;
-        res.json({ users });
+        const user = data.rows;
+        console.log("server response for user", user);
+        res.send({ user });
       })
       .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+        console.log(err.message);
       });
   });
+
   return router;
 };

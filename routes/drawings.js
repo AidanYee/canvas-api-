@@ -28,7 +28,21 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   });
 
+
   //GET User drawings
+  router.get("/:id", (req, res) => {
+    const userDrawings = JSON.stringify(res.body)
+    console.log("get route" ,res.body)
+    db.query(`SELECT * FROM users WHERE id = 1;`)
+      .then(data => {
+        const users = data.rows;
+        res.send({ users });
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  });
+
 
   //GET Showcase
 
