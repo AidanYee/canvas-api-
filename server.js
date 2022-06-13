@@ -58,5 +58,3 @@ app.listen(PORT, () => {
 // -We established the connection to express by attaching it to a var named app here is server.js
 //  we export that var so other can use the connection
 module.exports = app;
-
-
