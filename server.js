@@ -28,6 +28,9 @@ app.use(cors());
 const drawingsRoutes = require("./routes/drawings");
 app.use("/drawings", drawingsRoutes(db));
 
+const showcaseDrawings = require("./routes/showcase");
+app.use("/showcase", showcaseDrawings(db));
+
 //--------------------------------------------------------------------------------
 // FIRST SUCCESSFULL ROUTE:
 // -built with mentor, and proven successful
