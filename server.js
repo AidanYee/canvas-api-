@@ -34,6 +34,9 @@ app.use("/drawings", drawingsRoutes(db));
 const showcaseDrawings = require("./routes/showcase");
 app.use("/showcase", showcaseDrawings(db));
 
+const libraryDrawings = require("./routes/getDrawings");
+app.use("/getDrawings", libraryDrawings(db));
+
 //--------------------------------------------------------------------------------
 // FIRST SUCCESSFULL ROUTE:
 // -built with mentor, and proven successful
