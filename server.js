@@ -34,6 +34,9 @@ app.use("/drawings", drawingsRoutes(db));
 const showcaseDrawings = require("./routes/showcase");
 app.use("/showcase", showcaseDrawings(db));
 
+const libraryDrawings = require("./routes/getDrawings");
+app.use("/getDrawings", libraryDrawings(db));
+
 //--------------------------------------------------------------------------------
 // FIRST SUCCESSFULL ROUTE:
 // -built with mentor, and proven successful
@@ -58,5 +61,3 @@ app.listen(PORT, () => {
 // -We established the connection to express by attaching it to a var named app here is server.js
 //  we export that var so other can use the connection
 module.exports = app;
-
-
