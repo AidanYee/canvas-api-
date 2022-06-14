@@ -7,6 +7,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE drawings (
+  id SERIAL PRIMARY KEY NOT NULL,
   users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   drawing_name VARCHAR(255) NOT NULL,
   drawing_points JSON NOT NULL,
