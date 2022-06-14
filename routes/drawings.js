@@ -12,13 +12,13 @@ const router = require("express").Router();
 module.exports = (db) => {
   //POST drawings
   router.post("/", (req, res) => {
-    const drawingsData = JSON.stringify(req.body);
-
+    const drawingsData = JSON.stringify(req.body.latLong);
+    const name = req.body.name;
     return db
       .query(
         `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-          VALUES (1,'test1','${drawingsData}',false) RETURNING *;
+          VALUES (1,'${name}','${drawingsData}',false) RETURNING *;
         `
       )
       .then((response) => {
