@@ -18,7 +18,7 @@ module.exports = (db) => {
       .then(data => {
         const user = data.rows;
         console.log("server response for user", user);
-        res.send({ user });
+        res.send( {user} );
       })
       .catch(err => {
         console.log(err.message);
