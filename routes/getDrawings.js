@@ -4,13 +4,13 @@ const router = require("express").Router();
 //---------------------------------------------------------------------------
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    const libraryDrawings = JSON.stringify(res.body);
+  router.post("/", (req, res) => {
 
+    const id = req.body.id;
     return db
       .query(
         `
-          SELECT * FROM drawings WHERE users_id = 1;
+          SELECT * FROM drawings WHERE users_id = ${id};
         `
       )
       .then((response) => {
