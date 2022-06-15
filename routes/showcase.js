@@ -1,7 +1,11 @@
 // SHOWCASE ROUTE:
+//---------------------------------------------------------------------------
 const router = require("express").Router();
 
 //---------------------------------------------------------------------------
+// -this route is called by the getShowcaseDrawings func in canvas (Showcase.jsx)
+// -it gets all the showcase drawings from the drawings table and uses the data
+//  to populate the showcase drawing card on the app
 
 module.exports = (db) => {
   router.get("/", (req, res) => {

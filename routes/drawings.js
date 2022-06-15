@@ -1,13 +1,15 @@
 // DRAWINGS ROUTE:
+//-----------------------------------------------------------------------------
 const router = require("express").Router();
 
 //---------------------------------------------------------------------------
-// POST ROUTE (connected to save function in canvas app)
-// -receives the axios post request from the saveDrawing func on the canvas client side
-// -it takes the data it is given and turns it from an array fo objects into JSON string
-//  and sends that to the elephantSQL DB via an INSERT
+// -this route is called by the save function in canvas app (map.js)
+// -receives the axios post request from the canvas client side and takes
+//  the data it is given and turns it from an array of objects into a JSON string
+//  and sends that to the elephantSQL DB via an INSERT querry.
 // -if the insert is successfull we send the same data (via res.send) back to the client side
-//  and the client side uses that info to clear the latLong state
+//  and the client side uses that info to clear the latLong state which removes the points from
+//  the screen
 
 module.exports = (db) => {
   //POST drawings

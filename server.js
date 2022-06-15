@@ -1,4 +1,4 @@
-// SERVER FILE:
+// CANVAS API SERVER FILE:
 //------------------------------------------------------------------------------
 // load .env data into process.env, allows us to use env files
 require("dotenv").config();
@@ -24,7 +24,7 @@ app.use(express.json({ extended: true }));
 app.use(cors());
 
 //--------------------------------------------------------------------------------
-// CONNECTS TO SEPERATED ROUTE IN ROUTES FOLDER
+// CONNECTS TO SEPERATED ROUTE IN ROUTES FOLDER:
 const usersRoutes = require("./routes/users");
 app.use("/users", usersRoutes(db));
 
@@ -39,6 +39,7 @@ app.use("/getDrawings", libraryDrawings(db));
 
 const shareDrawing = require("./routes/shareDrawings");
 app.use("/shareDrawings", shareDrawing(db));
+
 //--------------------------------------------------------------------------------
 // FIRST SUCCESSFULL ROUTE:
 // -built with mentor, and proven successful
