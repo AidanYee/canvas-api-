@@ -37,6 +37,8 @@ app.use("/showcase", showcaseDrawings(db));
 const libraryDrawings = require("./routes/getDrawings");
 app.use("/getDrawings", libraryDrawings(db));
 
+const shareDrawing = require("./routes/shareDrawings");
+app.use("/shareDrawings", shareDrawing(db));
 //--------------------------------------------------------------------------------
 // FIRST SUCCESSFULL ROUTE:
 // -built with mentor, and proven successful

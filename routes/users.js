@@ -13,11 +13,11 @@ module.exports = (db) => {
   router.post("/login", (req, res) => {
 
     //const user = req;
-    console.log("post route", req.body);
+    //console.log("post route", req.body);
     db.query(`SELECT * FROM users WHERE id = 1;`)
       .then(data => {
         const user = data.rows;
-        console.log("server response for user", user);
+        //console.log("server response for user", user);
         res.send(user[0]);
       })
       .catch(err => {
