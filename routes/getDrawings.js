@@ -3,8 +3,6 @@
 const router = require("express").Router();
 
 //---------------------------------------------------------------------------
-// *** REVIEW THESE NOTES AS A GROUP ***
-
 // -this route is called by the getDrawingsForUser func in canvas app (DropDownMenu.jsx)
 // -it requests from the db all the drawings for a given user
 // -canvas app uses this data to populate the drawing library for logged in user
@@ -15,9 +13,10 @@ module.exports = (db) => {
     return db
       .query(
         `
-          SELECT * FROM drawings WHERE users_id = ${id};
-        `
+          SELECT * FROM drawings WHERE users_id = $1;`,
+        [id]
       )
+
       .then((response) => {
         // console.log("res ===>", response.rows);
         return res.send(response.rows);
