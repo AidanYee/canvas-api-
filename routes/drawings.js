@@ -20,7 +20,7 @@ module.exports = (db) => {
       .query(
         `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-          VALUES (1, $1, $2, true) RETURNING *;`,
+          VALUES (1, $1, $2, false) RETURNING *;`,
         [name, drawingsData]
       )
       .then((response) => {
