@@ -18,7 +18,7 @@ module.exports = (db) => {
       )
 
       .then((response) => {
-        console.log("res ===>", response.rows);
+        console.log("res get drawings ===>", response.rows);
         return res.send(response.rows);
       })
       .catch((err) => console.log(err.message));

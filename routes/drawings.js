@@ -20,7 +20,7 @@ module.exports = (db) => {
       .query(
         `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-          VALUES (1, $1, $2, false) RETURNING *;`,
+          VALUES (1, $1, $2, true) RETURNING *;`,
         [name, drawingsData]
       )
       .then((response) => {
@@ -33,14 +33,14 @@ module.exports = (db) => {
   //--------------------------------------------------------------------------------------
   // DELETE DRAWING BY ID:
   router.delete("/:id", (req, res) => {
-    console.log("delete request made", req.body.id);
+    console.log("delete request made", req.params.id);
     const id = req.params.id;
 
     return db
       .query(`DELETE FROM drawings WHERE id = ${id};`)
 
       .then((response) => {
-        console.log("res delete===>", response);
+        console.log(" delete response from server===>", response.rows);
         return res.send(response);
       })
       .catch((err) => console.log(err.message));
