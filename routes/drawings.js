@@ -13,18 +13,20 @@ const router = require("express").Router();
 
 module.exports = (db) => {
   //POST drawings ---------------------------------------------------------------------
-  router.post("/", (req, res) => {
-    const drawingsData = JSON.stringify(req.body.latLong);
-    const name = req.body.name;
+  router.post("/:id", (req, res) => {
+
+    const drawing_points = JSON.stringify(req.body.latLong);
+    const drawing_name = req.body.name;
+    const user_id = req.params.id
+
     return db
       .query(
         `
           INSERT INTO drawings (users_id, drawing_name, drawing_points, is_showcase)
-          VALUES (1, $1, $2, false) RETURNING *;`,
-        [name, drawingsData]
+          VALUES ($1, $2, $3, false) RETURNING *;`, [user_id, drawing_name, drawing_points]
       )
       .then((response) => {
-        //console.log("res ===>", response.rows[0].drawing_points);
+
         return res.send(response.rows);
       })
       .catch((err) => console.log(err.message));
@@ -33,14 +35,14 @@ module.exports = (db) => {
   //--------------------------------------------------------------------------------------
   // DELETE DRAWING BY ID:
   router.delete("/:id", (req, res) => {
-    //console.log("delete request made", req.params.id);
+
     const id = req.params.id;
 
     return db
       .query(`DELETE FROM drawings WHERE id = ${id};`)
 
       .then((response) => {
-        //console.log(" delete response from server===>", response.rows);
+        
         return res.send(response);
       })
       .catch((err) => console.log(err.message));

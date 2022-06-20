@@ -9,10 +9,11 @@ const router = require("express").Router();
 //  in the drawing library for a given logged in user
 module.exports = (db) => {
   router.get("/:id", (req, res) => {
+
     db.query(`SELECT * FROM drawings WHERE id = $1;`, [req.params.id])
 
       .then((data) => {
-        //const users = data.rows;
+        //fetched drawing data
         res.send(data.rows[0]);
       })
       .catch((err) => {

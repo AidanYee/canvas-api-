@@ -13,12 +13,11 @@ module.exports = (db) => {
     return db
       .query(
         `
-          SELECT * FROM drawings WHERE users_id = $1;`,
-        [id]
+          SELECT * FROM drawings WHERE users_id = $1;`, [id]
       )
 
       .then((response) => {
-        //console.log("res get drawings ===>", response.rows);
+        
         return res.send(response.rows);
       })
       .catch((err) => console.log(err.message));
